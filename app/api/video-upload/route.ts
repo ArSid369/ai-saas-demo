@@ -4,10 +4,9 @@ import { NextResponse, NextRequest } from 'next/server';
 import { auth } from '@clerk/nextjs/server';
 import { v2 as cloudinary } from 'cloudinary';
 import { resolve } from 'path';
+
+
 import { PrismaClient } from '@prisma/client';
-
-
-
 const prisma = new PrismaClient();
 
 // Configuration
@@ -84,7 +83,7 @@ export async function POST(req: NextRequest) {
                 compressedSize: String(result.bytes),
                 duration : result.duration || 0,
                 userId,
-                orgId: orgId || null,
+                //orgId: orgId || null,
             }
         });
 
@@ -96,8 +95,8 @@ export async function POST(req: NextRequest) {
     } catch (error) {
         console.log('Error uploading file to Cloudinary:', error);
         return NextResponse.json({ error: 'Error uploading video' }, { status: 500 });
-    } finally {
+    } /*finally {
         await prisma.disconnect();
-    }
+    }*/
 
 }
